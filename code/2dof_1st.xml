@@ -1,0 +1,37 @@
+<mujoco model="two_link_drawer">
+  <option timestep="0.01" gravity="0 0 0"/>
+
+  <visual>
+    <headlight ambient="0.8 0.8 0.8"/>
+  </visual>
+
+  <worldbody>
+    <!-- 바닥/배경 -->
+    <geom name="floor" type="plane" size="3 3 0.1" rgba="0.95 0.95 0.95 1"/>
+
+    <!-- 기준점 -->
+    <body name="base" pos="0 0 0">
+      <geom type="cylinder" size="0.04 0.02" rgba="0.2 0.2 0.2 1"/>
+
+      <!-- 1번 링크 -->
+      <body name="link1" pos="0 0 0">
+        <joint name="joint1" type="hinge" axis="0 0 1" pos="0 0 0" range="-180 180"/>
+        <geom type="capsule" fromto="0 0 0  0.5 0 0" size="0.03" rgba="0.2 0.4 0.8 1"/>
+
+        <!-- 2번 링크 -->
+        <body name="link2" pos="0.5 0 0">
+          <joint name="joint2" type="hinge" axis="0 0 1" pos="0 0 0" range="-180 180"/>
+          <geom type="capsule" fromto="0 0 0  0.4 0 0" size="0.025" rgba="0.8 0.4 0.2 1"/>
+
+          <!-- end-effector -->
+          <site name="ee" pos="0.4 0 0" size="0.02" rgba="1 0 0 1"/>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <position name="act1" joint="joint1" kp="80"/>
+    <position name="act2" joint="joint2" kp="80"/>
+  </actuator>
+</mujoco>
