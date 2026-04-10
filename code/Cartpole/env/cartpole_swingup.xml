@@ -1,0 +1,45 @@
+<mujoco model="cartpole_swingup">
+  <compiler angle="radian"/>
+  <option timestep="0.01" gravity="0 0 -9.81"/>
+
+  <default>
+    <joint damping="0.02"/>
+    <geom rgba="0.7 0.7 0.7 1"/>
+  </default>
+
+  <worldbody>
+    <geom name="rail"
+          type="capsule"
+          fromto="-2 0 1 2 0 1"
+          size="0.02"
+          rgba="0.2 0.2 0.2 1"/>
+
+    <body name="cart" pos="0 0 1">
+      <joint name="slider" type="slide" axis="1 0 0" range="-2 2" damping="0.1"/>
+      <geom name="cart_geom"
+            type="box"
+            size="0.18 0.12 0.08"
+            mass="1.0"
+            rgba="0.3 0.5 0.9 1"/>
+
+      <body name="pole" pos="0 0 0">
+        <joint name="hinge" type="hinge" axis="0 1 0" damping="0.02"/>
+
+        <geom name="pole_geom"
+              type="capsule"
+              fromto="0 0 0 0 0 -0.6"
+              size="0.03"
+              mass="0.3"
+              rgba="0.8 0.3 0.3 1"/>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <motor name="cart_motor"
+          joint="slider"
+          gear="1"
+          ctrllimited="true"
+          ctrlrange="-10 10"/>
+  </actuator>
+</mujoco>
